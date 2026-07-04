@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Two-Factor Authentication Demo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Flask 2FA System</p>
+          <h1>Secure login with two-factor authentication.</h1>
+          <p class="intro">
+            Register an account, then log in with your password (factor 1)
+            followed by a one-time code delivered to your email (factor 2).
+          </p>
+        </div>
+      </section>
+
+      <section class="card">
+        <!-- Tabs -->
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="register">Register</button>
+          <button class="tab-btn" data-tab="login">Log In</button>
+        </div>
+
+        <!-- Registration form -->
+        <div id="panel-register" class="panel-view">
+          <label for="reg-username">Username</label>
+          <input id="reg-username" type="text" autocomplete="username" placeholder="e.g. jane_doe" />
+
+          <label for="reg-email">Email (for OTP delivery)</label>
+          <input id="reg-email" type="email" autocomplete="email" placeholder="e.g. jane@example.com" />
+
+          <label for="reg-password">Password</label>
+          <input id="reg-password" type="password" autocomplete="new-password" placeholder="At least 8 characters" />
+
+          <button id="register-btn" type="button" class="primary-btn">Create account</button>
+          <p id="register-status" class="status"></p>
+        </div>
+
+        <!-- Login step 1: password -->
+        <div id="panel-login-step1" class="panel-view hidden">
+          <label for="login-username">Username</label>
+          <input id="login-username" type="text" autocomplete="username" placeholder="e.g. jane_doe" />
+
+          <label for="login-password">Password</label>
+          <input id="login-password" type="password" autocomplete="current-password" placeholder="Your password" />
+
+          <button id="login-step1-btn" type="button" class="primary-btn">Continue</button>
+          <p id="login-step1-status" class="status"></p>
+        </div>
+
+        <!-- Login step 2: OTP -->
+        <div id="panel-login-step2" class="panel-view hidden">
+          <div class="otp-banner">
+            <strong>Step 2 of 2:</strong> Enter the 6-digit code sent to your email.
+          </div>
+          <div id="demo-otp-hint" class="demo-hint"></div>
+
+          <label for="otp-code">One-time code</label>
+          <input id="otp-code" type="text" inputmode="numeric" maxlength="6" placeholder="000000" />
+
+          <button id="login-step2-btn" type="button" class="primary-btn">Verify &amp; log in</button>
+          <button id="back-btn" type="button" class="link-btn">Start over</button>
+          <p id="login-step2-status" class="status"></p>
+        </div>
+
+        <!-- Success -->
+        <div id="panel-success" class="panel-view hidden">
+          <div class="success-box">
+            <h2>✅ You're logged in</h2>
+            <p>Both factors were verified successfully.</p>
+            <button id="logout-btn" type="button" class="primary-btn">Log out</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
